@@ -1,0 +1,14 @@
+﻿@model IEnumerable<DoAnWatch.Models.Category>
+@if (Model != null && Model.Any())
+{
+<ul class="navbar_menu">
+    @*@foreach( var item in Model)
+                {
+        <li> <a href="@item.Title">@item.Title</a></li>*@
+    
+    <li> <a href="/Home/index">Trang Chủ</a></li>
+    <li> <a href="/product/index">Sản Phẩm</a></li>
+
+    <li> <a href="/home/contact">Liên Hệ</a></li>
+</ul>
+}

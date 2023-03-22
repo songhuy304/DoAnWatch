@@ -1,0 +1,184 @@
+﻿@model DoAnWatch.Models.Product
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section naviheader{
+
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin" class="nav-link">Trang Chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/product" class="nav-link">sản Phẩm</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Thêm Mới</a>
+        </li>
+    </ul>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Danh Mục</a></li>
+                    <li class="breadcrumb-item active">Thêm Mới</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông Tin thêm mới</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("Add", "Product", FormMethod.Post, new { @enctye = "multipart/form-data"}))
+
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <!-- your steps content here -->
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên Sản Phẩm</label>
+                            @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @placeholder = "tên SP" })
+                            @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Mã SP</label>
+                            @Html.TextBoxFor(x => x.ProductCode, new { @class = "form-control", @placeholder = "Mã SP" })
+                            @Html.ValidationMessageFor(x => x.ProductCode, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Danh Mục Sản Phẩm</label>
+                            @Html.DropDownListFor(x => x.ProductCategoryId, ViewBag.ProductCategory as SelectList, "-Chọn Danh Mục Sản phẩm-", new { @class = "form-control", @placeholder = "Miêu Tả" })
+                            @Html.ValidationMessageFor(x => x.ProductCategoryId, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Miêu Tả</label>
+                            @Html.TextBoxFor(x => x.Description, new { @class = "form-control", @placeholder = "Miêu Tả" })
+                            @Html.ValidationMessageFor(x => x.Description, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Chi Tiết Sản Phẩm</label>
+                            @Html.TextBoxFor(x => x.Detail, new { @class = "form-control", @placeholder = "Chi Tiết" })
+                            @Html.ValidationMessageFor(x => x.Detail, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Giá</label>s
+                                    @Html.TextBoxFor(x => x.Price, new { @class = "form-control", @placeholder = "Giá" })
+                                    @Html.ValidationMessageFor(x => x.Price, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Số Lượng</label>
+                                    @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control", })
+                                    @Html.ValidationMessageFor(x => x.Quantity, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Giá Sale</label>
+                                    @Html.TextBoxFor(x => x.PriceSale, new { @class = "form-control", @placehorder = " Giá Sale" })
+                                    @*@Html.ValidationMessageFor(x => x.Quantity, null, new { @class = "text-danger" })*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        @Html.CheckBoxFor(x => x.IsHome, new { @class = "custom-control-input", @id = "customCheckbox2" })
+                                        <label for="customCheckbox2" class="custom-control-label">Hiển Thị</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        @Html.CheckBoxFor(x => x.IsSale, new { @class = "custom-control-input", @id = "IsSaleCheckbox2" })
+                                        <label for="IsSaleCheckbox2" class="custom-control-label">Sale</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        @Html.CheckBoxFor(x => x.IsFeature, new { @class = "custom-control-input", @id = "IsFeatureCheckbox2" })
+                                        <label for="IsFeatureCheckbox2" class="custom-control-label">Nổi Bật</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        @Html.CheckBoxFor(x => x.IsHot, new { @class = "custom-control-input", @id = "IsHotCheckbox2" })
+                                        <label for="IsHotCheckbox2" class="custom-control-label">Hot</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Ảnh Sản Phẩm</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="btn btn-primary " name="fileimg"  />
+
+                                    @Html.EditorFor(x => x.Image, new { @id = "txtImage", @class = "form-control" })
+                                </div>
+                                <div class="input-group-append">
+                                  @*  <input type="button"  class="btn btn-primary " id ="iTaiAnh"onclick="browserClick" value="Tải Ảnh" />*@
+                                </div>
+                            </div>
+                           
+                            
+                           
+                        </div>
+
+                        <div class="form-group">
+                            <a href="/admin/product" class="btn btn-danger">Quay Lại</a>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+@section scripts{
+ 
+    
+    }

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<DoAnWatch.Models.Product>
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <div class="product-item men">
+            <div class="product discount product_filter">
+                <div class="product_image">
+                    <a href="/Products/detail/@item.Id"><img src="@Url.Content("~/Content/img/" + item.Image)" width="210" height="218" alt=""></a>
+
+
+                </div>
+                <div class="favorite favorite_left"></div>
+                <div class="product_info">
+                    <h6 class="product_name"><a href="">@item.Title</a></h6>
+                    <div class="product_price">$@item.Price</div>
+                </div>
+            </div>
+            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+        </div>
+
+    }
+}

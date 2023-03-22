@@ -1,0 +1,21 @@
+﻿@model IEnumerable<DoAnWatch.Models.ProductCategogy>
+@if (Model != null && Model.Any())
+{
+    <div class="sidebar_section">
+        <div class="sidebar_title">
+
+        </div>
+        <ul class="sidebar_categories">
+            @foreach (var item in Model)
+            {
+
+
+                @*<li class="grid_sorting_button button d-flex flex-column align-items-center" data-filter=".@item.Title">@item.Title</li>*@
+                <li> <a href="@item.Id">@item.Title</a></li>
+
+            }
+
+        </ul>
+    </div>
+   
+}

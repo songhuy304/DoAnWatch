@@ -1,0 +1,7 @@
+﻿body {
+}
+.product-item {
+    height: 380px;
+    cursor: pointer;
+    text-align: center;
+}

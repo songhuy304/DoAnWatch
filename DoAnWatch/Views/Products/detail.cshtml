@@ -1,0 +1,118 @@
+﻿@model DoAnWatch.Models.Product
+
+@{
+    ViewBag.Title = "detail";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/asset/plugins/themify-icons/themify-icons.css">
+<link rel="stylesheet" type="text/css" href="~/Content/asset/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="~/Content/asset/styles/single_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/asset/styles/single_responsive.css">
+
+
+
+
+
+
+    <div class="container single_product_container">
+        <div class="row">
+            <div class="col">
+
+                <!-- Breadcrumbs -->
+
+                <div class="breadcrumbs d-flex flex-row align-items-center">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="categories.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Men's</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Single Product</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="single_product_pics">
+                    <div class="row">
+                        <div class="col-lg-3 thumbnails_col order-lg-1 order-2">
+                            <div class="single_product_thumbnails">
+                               
+                            </div>
+                        </div>
+                        <div class="col-lg-9 image_col order-lg-2 order-1">
+                            <div class="single_product_image">
+                                <div class="single_product_image_background">
+                                    <img src="@Url.Content("~/Content/img/" + Model.Image)" alt="">
+                                    <div style="background-image:src(@Url.Content("~/Content/img/" + Model.Image)">
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="product_details">
+                    <div class="product_details_title">
+                        <H3>
+                            @Model.Title 
+                            @*@Html.DisplayFor(model => model.Title)*@
+                        </H3>
+                        <p>@Html.DisplayFor(model=>model.Description)</p>
+                    </div>
+                    <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
+                        <span class="ti-truck"></span><span>free delivery</span>
+                    </div>
+                    @if(Model.PriceSale > 0)
+                    {
+                    <div class="original_price">
+                        $@Html.DisplayFor(model => model.PriceSale)
+
+                    </div>
+                    }
+                    
+                    <div class="product_price">
+                        $@Html.DisplayFor(model => model.Price)
+
+                    </div>
+                    <ul class="star_rating">
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                    </ul>
+                   
+                    <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                        <span>Quantity:</span>
+                        <div class="quantity_selector">
+                            <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                            <span id="quantity_value">1</span>
+                            <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+                        <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<p>
+
+</p>
+@section scripts{
+    <script src="~/Content/asset/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/asset/styles/bootstrap4/popper.js"></script>
+    <script src="~/Content/asset/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="~/Content/asset/plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="~/Content/asset/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="~/Content/asset/plugins/easing/easing.js"></script>
+    <script src="~/Content/asset/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/Content/asset/js/single_custom.js"></script>
+}

@@ -1,0 +1,24 @@
+﻿    @model IEnumerable<DoAnWatch.Models.ProductCategogy>
+@if (Model != null && Model.Any())
+{
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="banner_item align-items-center" style="background-image:url(../../Content/asset/images/banner_3.jpg)">
+                            <div class="banner_category">
+                                <a href="/product/index">@item.Title</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+
+}
+
