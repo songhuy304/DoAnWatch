@@ -11,10 +11,20 @@ namespace DoAnWatch.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            var items = db.Products.ToList();
-            return View(items);
+            ViewBag.Keyword = searchString;
+            var items = db.Products.Where(x => x.Title.Contains(searchString) || searchString == null);
+
+            //if (categoryID != 0)
+            //{
+            //    items = db.Products.Where(x => x.ProductCategoryId == categoryID);
+            //}
+            //ViewBag.ProductCategoryID = new SelectList(db.ProductCategogies.ToList(), "Id", "Title");
+
+
+            return View(/*db.Products.Where(x => x.Title.Contains(searchString) || searchString == null).ToList()*/items.ToList());
+
         }
         public ActionResult detail(int? id)
         {

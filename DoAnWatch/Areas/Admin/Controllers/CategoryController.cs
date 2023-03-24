@@ -17,18 +17,38 @@ namespace DoAnWatch.Areas.Admin.Controllers
     {
         ApplicationDbContext _dbcontext = new ApplicationDbContext();
         // GET: Admin/Category
-        public ActionResult Index(int? page)
+
+        //TÌm kiếm kết hợp Phân trang 
+        public ActionResult Index( string currentFilter,  int? page, string searchString)
         {
-            var pagesize = 2;
-            if (page == null)
+
+            var item = new List<Category>();
+
+           
+            if (searchString != null) /*nếu ô tìm kiếm bằng null thì trả page về = 1*/
             {
                 page = 1;
             }
-            var pageIndex = Convert.ToInt32(page);
-            var item = _dbcontext.categories.OrderBy(x => x.Id).ToPagedList(pageIndex, pagesize);
-            ViewBag.PageSize = pagesize;
-            ViewBag.Page = page; 
-            return View(item);
+            else
+            {
+                searchString = currentFilter;
+            }
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                item = _dbcontext.categories.Where(x => x.Title.Contains(searchString) || searchString == null).ToList();
+
+            }
+            else
+            {
+                item = _dbcontext.categories.ToList();
+            }
+            ViewBag.CurrentFilter = searchString;
+            int pageIndex =(page ?? 1 );
+            int pagesize = 2;
+            item = item.OrderByDescending(n => n.Id).ToList();
+            //ViewBag.PageSize = pagesize;
+            //ViewBag.Page = page; 
+            return View(item.ToPagedList(pageIndex, pagesize));
         }
         public ActionResult Add()
         {

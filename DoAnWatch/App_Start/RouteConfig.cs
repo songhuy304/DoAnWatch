@@ -28,7 +28,17 @@ namespace DoAnWatch
               defaults: new { controller = "Products", action = "Index", id = UrlParameter.Optional },
               namespaces: new[] { "DoAnWatch.Controllers" }
 
+
+          ); routes.MapRoute(
+              name: "ShoppingCart",
+              url: "Shopping-Cart",
+
+              defaults: new { controller = "ShoppingCart", action = "Index", id = UrlParameter.Optional },
+              namespaces: new[] { "DoAnWatch.Controllers" }
+
+
           );
+
             routes.MapRoute(
              name: "Default",
              url: "{controller}/{action}/{id}",

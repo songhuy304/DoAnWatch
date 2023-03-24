@@ -12,10 +12,10 @@ namespace DoAnWatch.Areas.Admin.Controllers
     {
         ApplicationDbContext _dbcontext = new ApplicationDbContext();
         // GET: Admin/ProductCategory
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            var item = _dbcontext.ProductCategogies;
-            return View(item);
+           
+            return View(_dbcontext.ProductCategogies.Where(x=>x.Title.Contains(searchString) || searchString == null).ToList());
         }
         
         public ActionResult Add()
@@ -39,6 +39,42 @@ namespace DoAnWatch.Areas.Admin.Controllers
             }
 
             return View(productcate);
+        }
+        [HttpGet]
+        public ActionResult edit(int id)
+        {
+            var productCategogy = _dbcontext.ProductCategogies.Find(id);
+            return View(productCategogy);
+        }
+        [HttpPost]
+        public ActionResult edit(ProductCategogy productcate)
+
+        {
+
+
+
+            if (ModelState.IsValid)
+            {
+                _dbcontext.ProductCategogies.Attach(productcate);
+                _dbcontext.Entry(productcate).State = System.Data.Entity.EntityState.Modified;
+
+                _dbcontext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(productcate);
+            
+        }
+        //Xóa Không load trang khác  
+
+        public ActionResult Delete(int? id)
+        {
+
+            var productCategogy = _dbcontext.ProductCategogies.Find(id);
+            _dbcontext.ProductCategogies.Remove(productCategogy);
+            _dbcontext.SaveChanges();
+            return RedirectToAction("Index");
+
         }
     }
 }

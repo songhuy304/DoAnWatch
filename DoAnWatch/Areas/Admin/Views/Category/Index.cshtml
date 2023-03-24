@@ -46,6 +46,11 @@
             <h3 class="card-title">Danh Sách Danh Mục</h3>
 
             <div class="card-tools">
+                @using (Html.BeginForm("Index", "Category", FormMethod.Get))
+                {
+
+                    @Html.TextBox("searchString", ViewBag.CurrentFilter as string)<input type="submit" value="Search" class="btn btn-primary" />
+                }
                 <a href="/admin/category/add" class="btn btn-primary">Thêm Mới</a>
             </div>
         </div>
@@ -78,7 +83,7 @@
                                     
                                 </td>
                             </tr>
-                            i++;
+                            //i++;
                         }
                     }
                     else
@@ -90,7 +95,7 @@
                 </tbody>
             </table>
             @Html.PagedListPager(Model, page => Url.Action("Index",
-                new { page}))
+                new { page , currentFilter = ViewBag.CurrentFilter}))
         </div>
         <!-- /.card-body -->
         <div class="card-footer">

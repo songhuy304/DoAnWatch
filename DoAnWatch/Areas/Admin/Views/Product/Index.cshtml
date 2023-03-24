@@ -44,9 +44,14 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Danh SáchSản Phẩm</h3>
-
+            <h3 class="card-title">Danh Sách Sản Phẩm</h3>
+            
             <div class="card-tools">
+                @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+                {
+
+                    @Html.TextBox("searchString", ViewBag.CurrentFilter as string)<input type="submit" value="Search" class="btn btn-default" />
+                }
                 <a href="/admin/Product/Add" class="btn btn-primary">Thêm Mới</a>
             </div>
         </div>
@@ -104,7 +109,7 @@
 
                                 </td>
                             </tr>
-                            i = i+1;
+                            i = i + 1;
                         }
                     }
                     else
@@ -116,7 +121,7 @@
                 </tbody>
             </table>
             @Html.PagedListPager(Model, page => Url.Action("Index",
-               new { page }))
+                new { page, currentFilter = ViewBag.CurrentFilter }))
         </div>
         <!-- /.card-body -->
         <div class="card-footer">

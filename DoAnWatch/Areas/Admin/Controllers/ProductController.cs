@@ -12,18 +12,51 @@ namespace DoAnWatch.Areas.Admin.Controllers
     {
         public ApplicationDbContext _dbcontext = new ApplicationDbContext();
         // GET: Admin/Product
-        public ActionResult Index(int? page)
+        //tìm kiếm + phân trang
+        public ActionResult Index(string currentFilter, int? page, string searchString)
         {
-            //var products = _dbcontext.Products;
-            IEnumerable<Product> item = _dbcontext.Products.OrderByDescending(x => x.Id);
-            var pagesize = 5;
-            if (page == null)
+            var item = new List<Product>();
+
+
+            if (searchString != null) /*nếu ô tìm kiếm bằng khác null  thì bắt đầu từ  page  1*/
             {
                 page = 1;
             }
-            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            item = item.ToPagedList(pageIndex, pagesize);
-            return View(item);
+            else
+            {
+                searchString = currentFilter;
+            }
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                //lấy ds sản phẩm theo từ khóa
+                item = _dbcontext.Products.Where(x => x.Title.Contains(searchString) || searchString == null).ToList(); 
+
+            }
+            else
+            {
+                //ngược lại trả toàn bộ sản phẩm
+                item = _dbcontext.Products.ToList();
+            }
+            ViewBag.CurrentFilter = searchString;
+            int pageIndex = (page ?? 1);
+            int pagesize = 5; /*số lượng item của trang = 5*/
+            item = item.OrderByDescending(n => n.Id).ToList();
+            //ViewBag.PageSize = pagesize;
+            //ViewBag.Page = page; 
+            return View(item.ToPagedList(pageIndex, pagesize));
+            
+
+            //<*-- Phân trang -->
+
+            //IEnumerable<Product> item = _dbcontext.Products.OrderByDescending(x => x.Id);
+            //var pagesize = 5;
+            //if (page == null)
+            //{
+            //    page = 1;
+            //}
+            //var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            //item = item.ToPagedList(pageIndex, pagesize);
+            //return View(item);
         }
         public ActionResult Add()
         {

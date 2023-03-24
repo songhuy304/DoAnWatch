@@ -826,7 +826,7 @@ section
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
-	margin-top: 150px;
+	margin-top: 50px;
 }
 .main_slider_content
 {
@@ -1040,12 +1040,12 @@ section
 	height: 340px;
 	border-right: solid 1px #e9e9e9;
 }
-.product_image
-{
+.product_image {
 	width: 100%;
 }
 .product_image img
 {
+	
 	width: 100%;
 }
 .product_info
@@ -1688,4 +1688,10 @@ section
 	width: 100%;
 	margin-top: 160px;
 	background: #f2f2f2;
+}
+.product_image:hover {
+	transform: scale(1.3);
+}
+product discount product_filter:hover {
+	
 }

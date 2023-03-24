@@ -1,0 +1,129 @@
+﻿@model  IEnumerable<DoAnWatch.Models.ShoppingCartItem>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/asset/styles/bootstrap4/bootstrap.min.css">
+<link href="~/Content/asset/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="~/Content/asset/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="~/Content/asset/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+<link rel="stylesheet" type="text/css" href="~/Content/asset/plugins/OwlCarousel2-2.2.1/animate.css">
+<link rel="stylesheet" type="text/css" href="~/Content/asset/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="~/Content/asset/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/asset/styles/categories_responsive.css">
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/Home/index">Home</a></li>
+                    <li class="active"><a href="/Shoppingcart/index"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ Hàng</a></li>
+                </ul>
+            </div>
+
+            <!-- Sidebar -->
+            <!-- Main Content -->
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <tr class="text-center">
+                            <th>STT</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Ảnh Sản Phẩm</th>
+                            <th>Giá</th>
+                            <th>Số Lượng</th>
+                            <th>Thành Tiền</th>
+                            <th></th>
+
+
+                        </tr>
+                        @if (Model != null && Model.Any())
+                        {
+                            var i = 0;
+                            var tongtien = Decimal.Zero;
+                            foreach (var item in Model)
+                            {
+                                tongtien = tongtien + item.TotalPrice;
+                                <tr class="text-center">
+                                    <td>@(i+1)</td>
+                                    <td><a href="/products/detail/@item.ProductId">@item.ProductName</a> </td>
+                                    <td>
+                                        <img src="@Url.Content("~/Content/img/" + item.Image) " width="60" alt="">
+                                    </td>
+                                    <td>$@item.Price</td>
+                                    <td>@item.Quantity</td>
+                                    <td>$@item.TotalPrice</td>
+
+                                    <td>
+                                        <form action="@Url.Action("RemoveCartItem", "ShoppingCart")" method="post">
+                                            <input type="hidden" name="id" value="@item.ProductId" />
+                                            <input type="submit" value="Remove" />
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                                i++;
+
+
+                            }
+
+                            <tr>
+                                <td> </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><b> Tổng Tiền :$@tongtien </b> </td>
+
+                            </tr>
+                            <tr>
+                                <td> </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    @using (Html.BeginForm("ClearCart", "ShoppingCart", FormMethod.Post, new { @class = "form-control" }))
+                                    {
+
+                                        <button type="submit" class="btn btn-danger">Xóa Giỏ Hàng</button>
+
+                                    }
+
+                                    @*@Html.ActionLink("Xóa giỏ hàng", "ClearCart", "ShoppingCart", new { @class = "form-control" })*@
+                                </td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="text-center">
+                                <td> Không Có Sản Phẩm nào </td>
+                            </tr>
+                        }
+                    </table>
+                    <!-- Products -->
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/asset/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/asset/styles/bootstrap4/popper.js"></script>
+    <script src="~/Content/asset/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="~/Content/asset/plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="~/Content/asset/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="~/Content/asset/plugins/easing/easing.js"></script>
+    <script src="~/Content/asset/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/Content/asset/js/categories_custom.js"></script>
+}
+
