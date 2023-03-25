@@ -39,16 +39,17 @@ namespace DoAnWatch.Models
                 Items.Add(item);
             }
         }
+
         public void Remove(int id)
         {
-            var checkExits = Items.SingleOrDefault(x => x.ProductId == id);
+            var checkExits = Items.FirstOrDefault(x => x.ProductId == id);
             if (checkExits != null)
             {
                 Items.Remove(checkExits);
             }
         }
       
-        public void UppdateQuantity(int id, int Quantity)
+        public void UpdateQuantity(int id, int Quantity)
         {
             var checkExits = Items.SingleOrDefault(x => x.ProductId == id);
             if (checkExits != null)

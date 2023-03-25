@@ -214,8 +214,21 @@
     <Compile Include="Migrations\202303171400385_updatecre.designer.cs">
       <DependentUpon>202303171400385_updatecre.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303251155235_updatetable.cs" />
+    <Compile Include="Migrations\202303251155235_updatetable.designer.cs">
+      <DependentUpon>202303251155235_updatetable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303251209494_updatetableor.cs" />
+    <Compile Include="Migrations\202303251209494_updatetableor.designer.cs">
+      <DependentUpon>202303251209494_updatetableor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303251316064_update.cs" />
+    <Compile Include="Migrations\202303251316064_update.designer.cs">
+      <DependentUpon>202303251316064_update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\EF\Adv.cs" />
     <Compile Include="Models\EF\Category.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
@@ -231,12 +244,17 @@
     <Compile Include="Models\EF\ProductCategogy.cs" />
     <Compile Include="Models\EF\Subscribe.cs" />
     <Compile Include="Models\EF\SystemSetting.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ShoppingCartItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\asset\styles\css.css" />
+    <Content Include="Content\img\h3.png" />
+    <Content Include="Content\img\h5.png" />
+    <Content Include="Content\img\h6.png" />
+    <Content Include="Content\img\h7.png" />
     <Content Include="Content\img\sp2.png" />
     <Content Include="Content\img\sp3.png" />
     <Content Include="Content\img\sp4.png" />
@@ -2396,10 +2414,16 @@
     <Content Include="Views\Products\Partial_ItemsByCateIddd.cshtml" />
     <Content Include="Views\Products\detail.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\Partial_Item_Cart.cshtml" />
+    <Content Include="Views\ShoppingCart\CheckOut.cshtml" />
+    <Content Include="Views\ShoppingCart\Partial_Item_ThanhToan.cshtml" />
+    <Content Include="Views\ShoppingCart\Partial_CheckOut.cshtml" />
+    <Content Include="Views\ShoppingCart\CheckOutSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Views\CustomerViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -2423,6 +2447,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303171400385_updatecre.resx">
       <DependentUpon>202303171400385_updatecre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303251155235_updatetable.resx">
+      <DependentUpon>202303251155235_updatetable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303251209494_updatetableor.resx">
+      <DependentUpon>202303251209494_updatetableor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303251316064_update.resx">
+      <DependentUpon>202303251316064_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,5 @@
 ﻿using DoAnWatch.Models;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,90 @@ namespace DoAnWatch.Controllers
 
         public ActionResult Index()
         {
+
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
-            if( cart != null)
+            if (cart != null && cart.Items.Any())
             {
-                return View(cart.Items);
+                ViewBag.Checkcard = cart;
             }
             return View();
         }
+        public ActionResult CheckOut()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null && cart.Items.Any())
+            {
+                ViewBag.Checkcard = cart;
+            }
+            return View();
+        }
+        public ActionResult CheckOutSuccess()
+        {
+           
+            return View();
+        }
+        public ActionResult Partial_CheckOut()
+        {
+           
+            return PartialView();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CheckOut(OrderViewModel req)
+        {
+            var code = new {Success =false , Code = -1};
+            if (ModelState.IsValid)
+            {
+                ShoppingCart cart = (ShoppingCart)Session["Cart"];
+                if (cart != null)
+                {
+                    Order order = new Order();
+                    order.CustomerName = req.CustomerName;
+                    order.Phone = req.Phone;
+                    order.Address = req.Address;
+                    cart.Items.ForEach(x => order.OrderDetails.Add(new OrderDetail
+                    {
+                        ProductId = x.ProductId,
+                        Quantity = x.Quantity,
+                        Price = x.Price,
+
+                    }));
+                    order.TotalAmount = cart.Items.Sum(x=>(x.Price *x.Quantity));
+                    order.TypePayment = req.Payment;
+                    order.CreatedDate = DateTime.Now;
+                    order.CreatedBy = req.Phone;
+                    order.ModifiedDate = DateTime.Now;
+                    Random rd = new Random();
+                    order.Code = "DH" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+                    cart.ClearCart();
+                    return RedirectToAction("CheckOutSuccess");
+
+                }
+            }
+            return Json(code);
+        }
+        public ActionResult Partial_Item_Cart()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null && cart.Items.Any())
+            {
+                return View(cart.Items);
+            }
+            return PartialView();
+        }
+        public ActionResult Partial_Item_ThanhToan()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null && cart.Items.Any())
+            {
+                return View(cart.Items);
+            }
+            return PartialView();
+        }
+        
         public ActionResult ShowCount()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
@@ -66,6 +144,32 @@ namespace DoAnWatch.Controllers
             }
             return Json(code);
         }
+        public ActionResult RemoveCartItem(int id)
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null)
+            {
+                cart.Remove(id);
+                Session["Cart"] = cart;
+            }
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+      
+        public ActionResult Update_Quantity_Cart(FormCollection form)
+        {
+            ShoppingCart cart = Session["Cart"] as ShoppingCart;
+            int id_pro = int.Parse(form["ID_Product"]);
+            int quantity = int.Parse(form["Quantity"]);
+            cart.UpdateQuantity(id_pro, quantity);
+            return RedirectToAction("Index", "ShoppingCart");
+
+
+        }
+        [HttpPost]
+       
+      
         public ActionResult ClearCart()
         {
             // Xóa giỏ hàng trong phiên hiện tại
@@ -74,17 +178,6 @@ namespace DoAnWatch.Controllers
             return RedirectToAction("Index", "ShoppingCart");
         }
 
-
-        //public ActionResult RemoveCartItem(int id , int quantity = 1)
-        //{
-        //    ShoppingCartItem cart = (ShoppingCartItem)Session["Cart"];
-        //    if (cart != null)
-        //    {
-        //        cart.RemoveFromCart(id, quantity);
-        //        Session["Cart"] = cart;
-        //    }
-        //    return RedirectToAction("Cart");
-        //}
 
 
     }

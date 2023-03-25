@@ -1,0 +1,153 @@
+﻿@model  IEnumerable<DoAnWatch.Models.ShoppingCartItem>
+
+<table class="table">
+    <tr class="text-center">
+        <th>STT</th>
+        <th>Tên Sản Phẩm</th>
+        <th>Ảnh Sản Phẩm</th>
+        <th>Giá</th>
+        <th style="width:100px;">Số Lượng</th>
+        <th>Thành Tiền</th>
+        <th></th>
+
+
+    </tr>
+
+    @if (Model != null && Model.Any())
+    {
+
+
+        var i = 0;
+        var tongtien = Decimal.Zero;
+        foreach (var item in Model)
+        {
+            tongtien = tongtien + item.TotalPrice;
+            <tr class="text-center">
+                <td>@(i+1)</td>
+                <td><a href="/products/detail/@item.ProductId">@item.ProductName</a> </td>
+                <td><img src="@Url.Content("~/Content/img/" + item.Image) " width="60" alt=""></td>
+                <td>$@item.Price</td>
+                <td>
+                    @using (Html.BeginForm("Update_Quantity_Cart", "ShoppingCart"))
+                    {
+                        <input type="hidden" value="@item.ProductId" name="ID_Product" />
+                        <input type="number" class="form-control" value="@item.Quantity" name="Quantity" />
+                        <input type="submit" class="form-control " value="update quantity" />
+                    }
+
+                </td>
+                <td> $@item.TotalPrice</td>
+
+                <td>
+                    <form method="post" action="@Url.Action("RemoveCartItem", "ShoppingCart", new { id = item.ProductId })">
+                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                    </form>
+
+                </td>
+
+            </tr>
+            i++;
+
+
+        }
+
+        <tr>
+            <td> </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b> Tổng Tiền :$@tongtien </b> </td>
+
+        </tr>
+
+
+    }
+    else
+    {
+        <tr class="text-center">
+            <td> Không Có Sản Phẩm nào </td>
+        </tr>
+    }
+
+
+
+</table>
+<div class="form-group">
+    <div class="text-right">
+        <a href="/Shoppingcart/CheckOut" class="btn btn-default">Thanh Toán </a>
+        @using (Html.BeginForm("ClearCart", "ShoppingCart", FormMethod.Post, new { @class = "form-control" }))
+        {
+
+            <button type="submit" class="btn btn-danger">Xóa Giỏ Hàng</button>
+
+        }
+    </div>
+</div>
+@*@if (Model != null && Model.Any())
+    {
+        var i = 0;
+        var tongtien = Decimal.Zero;
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên Sản Phẩm</th>
+                    <th scope="col">Ảnh Sản Phẩm</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col" style="width: 120px;">Số Lượng</th>
+                    <th scope="col">Thành Tiền</th>
+                    <th scope="col">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    tongtien += item.TotalPrice;
+                    <tr class="text-center">
+                        <td>@(i+1)</td>
+                        <td>
+                            <a href="/products/detail/@item.ProductId">@item.ProductName</a>
+                        </td>
+                        <td>
+                            <img src="@Url.Content("~/Content/img/" + item.Image)" width="60" alt="@item.ProductName">
+                        </td>
+                        <td>$@item.Price</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" name="quantity" value="@item.Quantity" data-product-id="@item.ProductId" class="cart-item-quantity form-control" min="1" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btnUpdate" type="button" data-id="@item.ProductId">Cập nhật</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>$@item.TotalPrice</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a href="#" class="btn btn-danger btn-sm btnUpdate" data-id="@item.ProductId">Cập Nhật</a>
+                                @using (Html.BeginForm("RemoveCartItem", "ShoppingCart", new { id = item.ProductId }, FormMethod.Post, new { @class = "form-inline" }))
+                                {
+                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                    i++;
+                }
+                <tr class="text-center">
+                    <td colspan="5"><b>Tổng Tiền:</b></td>
+                    <td><b>$@tongtien</b></td>
+                    <td>
+                        @using (Html.BeginForm("ClearCart", "ShoppingCart", FormMethod.Post, new { @class = "form-inline" }))
+                        {
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa Giỏ Hàng</button>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center">Không có sản phẩm nào trong giỏ hàng</p>
+    }*@

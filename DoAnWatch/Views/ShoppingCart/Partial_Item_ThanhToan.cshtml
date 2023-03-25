@@ -1,0 +1,39 @@
+﻿
+@model  IEnumerable<DoAnWatch.Models.ShoppingCartItem>
+
+
+
+@if (Model != null && Model.Any())
+{
+    <h3>Giỏ Hàng <span style="float:right;"><small>@Model.Count()</small> </span></h3>
+
+    var i = 0;
+    var tongtien = Decimal.Zero;
+    <div style="border:1px solid #808080">
+        <table class="table">
+            @foreach (var item in Model)
+            {
+                tongtien = tongtien + item.TotalPrice;
+
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>$@item.Price</td>
+
+                </tr>
+            }
+                <tr>
+                    <td>Tổng Tiền : </td>
+                    <td>$@tongtien</td>
+                </tr>
+            
+        </table>
+    </div>
+
+
+}
+else
+{
+
+
+}
+

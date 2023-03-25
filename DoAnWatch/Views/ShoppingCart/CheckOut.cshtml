@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "CheckOut";
+}
+
+
+@*<link rel="stylesheet" type="text/css" href="~/Content/asset/styles/bootstrap4/bootstrap.min.css">
+    <link href="~/Content/asset/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/Content/asset/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/asset/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/asset/plugins/OwlCarousel2-2.2.1/animate.css">*@
+<link rel="stylesheet" type="text/css" href="~/Content/asset/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="~/Content/asset/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/asset/styles/categories_responsive.css">
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/Home/index">Home</a></li>
+                    <li class="active"><a href="/Shoppingcart/index"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ Hàng</a></li>
+                </ul>
+            </div>
+            @if (ViewBag.Checkcard != null)
+            {
+                <div class="row">
+                    <div  id="show_success"></div>
+                    <div class="col-md-9">
+                        @Html.Action("Partial_CheckOut", "shoppingcart")
+                    </div>
+                    <div class="col-md-3">
+
+
+                        @Html.Action("Partial_Item_ThanhToan", "ShoppingCart")
+
+
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div>Bạn Chưa Có Sản Phẩm Nào để Thanh Toán</div>
+            }
+
+        </div>
+    </div>
+</div>
+@section scripts{
+    @*<script src="~/Content/asset/js/jquery-3.2.1.min.js"></script>
+        <script src="~/Content/asset/styles/bootstrap4/popper.js"></script>
+        <script src="~/Content/asset/styles/bootstrap4/bootstrap.min.js"></script>
+        <script src="~/Content/asset/plugins/Isotope/isotope.pkgd.min.js"></script>
+        <script src="~/Content/asset/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+        <script src="~/Content/asset/plugins/easing/easing.js"></script>*@
+    <script src="~/Content/asset/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/Content/asset/js/categories_custom.js"></script>
+    <script>
+           
+        function OnFail(rs) {
+            if (!rs.Success) {
+                $('#show_success').html("MUA Thất Bại");
+            }
+        } 
+        $(document).ready(function () {
+
+            $('#myForm').validate({
+                rules: {
+                    'CustomerName': {
+                        requiered: true
+                        
+                    },
+                    'Phone': {
+                        requiered: true
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+

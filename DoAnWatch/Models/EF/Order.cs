@@ -8,7 +8,7 @@ using System.Web;
 namespace DoAnWatch.Models
 {
     [Table("tb_Order")]
-    public class Order
+    public class Order : CommonAbstract
     {
         public Order()
         {
@@ -24,9 +24,11 @@ namespace DoAnWatch.Models
         [Required]
         public string Phone { get; set; }
 
-        public string Addres { get; set; }
+        public string Address { get; set; }
         public decimal TotalAmount { get; set; }
         public int Quatity { get; set; }
+        public int TypePayment { get; set; }
+
         public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }
