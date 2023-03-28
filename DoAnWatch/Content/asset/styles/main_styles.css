@@ -51,8 +51,7 @@ COLOR PALETTE
 	margin: 0;
 	padding: 0;
 }
-body
-{
+body {
 	font-family: 'Poppins', sans-serif;
 	font-size: 14px;
 	line-height: 23px;
@@ -259,14 +258,17 @@ section
 3. Home
 *********************************/
 
-.header
-{
+.header {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	background: #FFFFFF;
+	/*background: #FFFFFF;*/
 	z-index: 10;
+	box-shadow: 0 1px 6px 0 rgb(32 33 36 / 10%);
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 }
 .top_nav
 {
@@ -566,10 +568,18 @@ section
 	-o-transition: color 0.3s ease;
 	transition: color 0.3s ease;
 }
-.navbar_menu li a:hover
-{
-	color: #b5aec4;
+.navbar_menu {
+	padding-left: 200px;
+	padding-right: 200px;
 }
+	.navbar_menu li a {
+		font-size: 14px;
+		font-weight: 500;
+	}
+		.navbar_menu li a:hover {
+			color: rgb(52, 231, 248);
+			
+		}
 .navbar_user
 {
 	margin-left: 37px;
@@ -810,10 +820,9 @@ section
 	font-weight: 700;
 	text-transform: uppercase;
 }
-.logo_container a span
-{
-	color: #fe4c50;
-}
+	.logo_container a span {
+		color: #34e7f8;
+	}
 
 /*********************************
 3.7 Main Slider
@@ -826,7 +835,7 @@ section
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
-	margin-top: 50px;
+	
 }
 .main_slider_content
 {
@@ -838,11 +847,11 @@ section
 	text-transform: uppercase;
 	margin-bottom: 29px;
 }
-.main_slider_content h1
-{
-	font-weight: 400;
-	line-height: 1;
-}
+	.main_slider_content h1 {
+		font-weight: 400;
+		line-height: 1;
+		color: #34e7f8;
+	}
 .red_button
 {
 	display: -webkit-inline-box;
@@ -882,6 +891,7 @@ section
 {
 	width: 140px;
 	margin-top: 32px;
+	background-color : 
 }
 
 /*********************************
@@ -1212,11 +1222,12 @@ section
 6. Deal of the week
 *********************************/
 
-.deal_ofthe_week
-{
+.deal_ofthe_week {
 	width: 100%;
-	margin-top: 160px;
+	margin-top: 90px;
 	background: #f2f2f2;
+	padding-top: 150px;
+	padding-bottom:100px;
 }
 .deal_ofthe_week_img
 {
@@ -1694,4 +1705,27 @@ section
 }
 product discount product_filter:hover {
 	
+}
+.news .about-text h2 {
+	font-family: ui-monospace;
+
+	text-transform: uppercase;
+	background-image: linear-gradient( -225deg, #6042cc 0%, #5e308f 29%, #ff1361 67%, #fff800 100% );
+	letter-spacing: 3px;
+	font-size: 42px;
+	background-size: auto auto;
+	background-clip: border-box;
+	background-size: 200% auto;
+	color: #fff;
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: textclip 2s linear infinite;
+	display: inline-block;
+}
+
+@keyframes textclip {
+	to {
+		background-position: 200% center;
+	}
 }

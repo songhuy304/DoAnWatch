@@ -38,6 +38,8 @@ namespace DoAnWatch.Models
         public string SeoKeywords { get; set; }
         //public IEnumerable<SelectListItem> CategoryList { get; set; }
         public virtual ProductCategogy ProductCategory { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
 
     }
 }

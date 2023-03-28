@@ -29,6 +29,6 @@ namespace DoAnWatch.Models
         public int Quatity { get; set; }
         public int TypePayment { get; set; }
 
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        public  virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

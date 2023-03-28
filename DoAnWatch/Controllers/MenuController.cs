@@ -15,11 +15,6 @@ namespace DoAnWatch.Controllers
         {
             return View();
         }
-        public ActionResult MenuTop()
-        {
-            var items = db.categories.OrderBy(x => x.Position).ToList();
-            return PartialView("MenuTop", items);
-        }
         public ActionResult MenuLeft()
         {
             var items = db.ProductCategogies.ToList();

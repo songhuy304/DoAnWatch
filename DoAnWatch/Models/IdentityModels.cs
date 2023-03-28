@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using DoAnWatch.Models.EF;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -27,10 +28,7 @@ namespace DoAnWatch.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        public DbSet<Category> categories { get; set; }
-        public DbSet<Adv> Advs { get; set; }
-        public DbSet<New> News{ get; set; }
-         public DbSet<Post> Posts { get; set; }
+       
         public DbSet<SystemSetting> SystemSettings { get; set; }
 
         public DbSet<ProductCategogy> ProductCategogies { get; set; }
@@ -38,7 +36,9 @@ namespace DoAnWatch.Models
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
-        public DbSet<Subscribe> Subscribes { get; set; }
+        public DbSet<Userr> userrs { get; set; }
+
+
 
         public DbSet<Product> Products { get; set; }
 
