@@ -20,9 +20,7 @@ namespace DoAnWatch.Models
         [Required(ErrorMessage = " Tên Danh Mục Không Đuợc trống")]
         public string Title { get; set; }
         public string Description { get; set; }
-        public string SeoTitle { get; set; }
-        public string SeoDescription { get; set; }
-        public string SeoKeywords { get; set; }
+    
         public ICollection<Product> Products { get; set; }
     }
 }

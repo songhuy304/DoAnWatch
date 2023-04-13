@@ -1,21 +1,40 @@
-﻿@model IEnumerable<DoAnWatch.Models.ProductCategogy>
+﻿@model IEnumerable<DoAnWatch.Models.Product>
 @if (Model != null && Model.Any())
 {
     <div class="sidebar_section">
         <div class="sidebar_title">
 
         </div>
-        <ul class="sidebar_categories">
-            @foreach (var item in Model)
-            {
+        
+
+        @foreach (var item in Model)
+        {
+
+            <div>
+                <div class="products itemss" style="width: 100%; display: inline-block;">
+                   
+
+                    <div class="item" style="display: flex; align-items: center; margin-bottom:60px">
+                        <div class="img-fluid">
+                            <img src="@Url.Content("~/Content/img/" + item.Image)" width="90" height="110" alt="">
+                        </div>
+                        <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center" style="left:-22px;"><span>Hot</span></div>
+                        <div style="margin-left: 10px;">
+                            <h6 class="product-name"><a href="/Products/detail/@item.Id" tabindex="0">@item.Title</a></h6>
+                            <div class="price">$@item.Price</div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
 
-                @*<li class="grid_sorting_button button d-flex flex-column align-items-center" data-filter=".@item.Title">@item.Title</li>*@
-                <li> <a href="@item.Id">@item.Title</a></li>
 
-            }
 
-        </ul>
+        }
+
+
     </div>
    
 }

@@ -19,8 +19,10 @@ namespace DoAnWatch.Controllers
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
             if (cart != null && cart.Items.Any())
             {
+
                 ViewBag.Checkcard = cart;
             }
+            
             return View();
         }
         public ActionResult CheckOut()
@@ -32,11 +34,7 @@ namespace DoAnWatch.Controllers
             }
             return View();
         }
-        public ActionResult CheckOutSuccess()
-        {
-           
-            return View();
-        }
+  
         public ActionResult Partial_CheckOut()
         {
            
@@ -47,16 +45,20 @@ namespace DoAnWatch.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CheckOut(OrderViewModel req)
         {
+            
             var code = new {Success =false , Code = -1};
             if (ModelState.IsValid)
             {
                 ShoppingCart cart = (ShoppingCart)Session["Cart"];
                 if (cart != null)
                 {
+                  
+
                     Order order = new Order();
                     order.CustomerName = req.CustomerName;
                     order.Phone = req.Phone;
                     order.Address = req.Address;
+                    order.Email = req.Email;
                     cart.Items.ForEach(x => order.OrderDetails.Add(new OrderDetail
                     {
                         ProductId = x.ProductId,
@@ -64,17 +66,41 @@ namespace DoAnWatch.Controllers
                         Price = x.Price,
 
                     }));
+                    foreach (var item in cart.Items)
+                    {
+                        var product = db.Products.Find(item.ProductId);
+                        if (product != null)
+                        {
+
+                            if (product.Quantity < item.Quantity)
+                            {
+                                string messs = "Xin lỗi có Sản phẩm bị quá cho phép! ";
+                                string script11 = "alert('" + messs + "');";
+                                return Content("<script type='text/javascript'>" + script11 + "window.location.href='/ShoppingCart/index';</script>");
+
+                            }
+                            else
+                            {
+                                product.Quantity -= item.Quantity;
+
+                            }
+                        }
+                    }
                     order.TotalAmount = cart.Items.Sum(x=>(x.Price *x.Quantity));
                     order.TypePayment = req.Payment;
                     order.CreatedDate = DateTime.Now;
                     order.CreatedBy = req.Phone;
                     order.ModifiedDate = DateTime.Now;
                     Random rd = new Random();
-                    order.Code = "DH" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
+                    order.Code = "A6" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
                     db.Orders.Add(order);
+                    
                     db.SaveChanges();
                     cart.ClearCart();
-                    return RedirectToAction("CheckOutSuccess");
+
+                    string message = "Đặt hàng thành công!";
+                    string script = "alert('" + message + "');";
+                    return Content("<script type='text/javascript'>" + script + "window.location.href='/home/index';</script>");
 
                 }
             }
@@ -98,7 +124,12 @@ namespace DoAnWatch.Controllers
             }
             return PartialView();
         }
-        
+        public ActionResult Partial_soluongcon()
+        {
+            
+            return PartialView();
+        }
+
         public ActionResult ShowCount()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
@@ -111,6 +142,11 @@ namespace DoAnWatch.Controllers
         [HttpPost]
         public ActionResult AddToCart(int id  , int quantity)
         {
+            //Nếu trong quá trình xử lý hàm, có một lỗi xảy ra hoặc không có giá trị nào được trả về,
+            //giá trị code trong đối tượng vô danh sẽ giữ nguyên giá trị -1.Tùy theo trường hợp,
+            //mã lỗi này có thể được sử dụng để hiển thị thông báo lỗi hoặc xử lý các trường hợp đặc biệt khác.
+            //Ví dụ, khi đối tượng vô danh trả về có Success = false, msg chứa thông báo lỗi, code = -1, và Count = 0,
+            //có thể hiển thị thông báo lỗi "Có lỗi xảy ra trong quá trình xử lý" và không cập nhật giỏ hàng.
             var code = new { Success = false, msg = "", code = -1 , Count = 0};
             var checkProduct  = db.Products.FirstOrDefault(p => p.Id == id);    
             if(checkProduct != null)
@@ -162,7 +198,28 @@ namespace DoAnWatch.Controllers
             ShoppingCart cart = Session["Cart"] as ShoppingCart;
             int id_pro = int.Parse(form["ID_Product"]);
             int quantity = int.Parse(form["Quantity"]);
-            cart.UpdateQuantity(id_pro, quantity);
+            var item = cart.Items.FirstOrDefault(i => i.ProductId == id_pro);
+            if (item != null)
+            {
+                var product = db.Products.Find(item.ProductId);
+                if (product != null)
+                {
+                    if (product.Quantity < quantity)
+                    {
+                        
+                        string messs = "có Sản phẩm bị quá cho phép " + product.Title + "chỉ còn" + product.Quantity;
+                        
+                        string script11 = "alert('" + messs + "');";
+                        return Content("<script type='text/javascript'>" + script11 + "window.location.href='/ShoppingCart/index';</script>");
+
+                        //ViewBag.ErrorMessage = $"Sản phẩm {product.Title} chỉ còn {product.Quantity} trong kho.";
+                    }
+                    else
+                    {
+                        cart.UpdateQuantity(id_pro, quantity);
+                    }
+                }
+            }
             return RedirectToAction("Index", "ShoppingCart");
 
 

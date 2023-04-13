@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using DoAnWatch.Models;
+using System.Security.Claims;
 
 namespace DoAnWatch
 {
@@ -14,6 +15,25 @@ namespace DoAnWatch
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            
+            var googleOptions = new GoogleOAuth2AuthenticationOptions
+            {
+                ClientId = "328394515607-d2tcqmd105jqaq6o387e5ovc0ae5dkfq.apps.googleusercontent.com",
+                ClientSecret = "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",
+                CallbackPath = new PathString("/signin-google"),
+                Provider = new GoogleOAuth2AuthenticationProvider
+                {
+                    OnAuthenticated = async context =>
+                    {
+                        context.Identity.AddClaim(new Claim("urn:google:accesstoken", context.AccessToken));
+                        context.Identity.AddClaim(new Claim("urn:google:name", context.Name));
+                        context.Identity.AddClaim(new Claim("urn:google:given_name", context.GivenName));
+                        context.Identity.AddClaim(new Claim("urn:google:family_name", context.FamilyName));
+                        context.Identity.AddClaim(new Claim("urn:google:email", context.Email));
+                    }
+                }
+            };
+            app.UseGoogleAuthentication(googleOptions);
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);

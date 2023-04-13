@@ -6,6 +6,8 @@
     ViewBag.Title = "Sản Phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 @section naviheader{
 
     <!-- Left navbar links -->
@@ -44,15 +46,19 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Danh SáchĐơn Hàn</h3>
+            <h3 class="card-title">Danh Sách Đơn Hàn</h3>
 
             <div class="card-tools">
-                @*@using (Html.BeginForm("Index", "Product", FormMethod.Get))
+                @using (Html.BeginForm("xem", "Orders", FormMethod.Get))
                 {
+                    <input type="date" id="startDate" name="startDate" class="btn" />
 
-                    @Html.TextBox("searchString", ViewBag.CurrentFilter as string)<input type="submit" value="Search" class="btn btn-default" />
-                }*@
-               
+                    <input type="date" id="endDate" name="endDate" class="btn" />
+                    <input type="submit" value="Search" class="btn btn-primary" />
+
+
+
+                }
             </div>
         </div>
         <div class="card-body">
@@ -64,12 +70,7 @@
                         <th>Tên Khách </th>
                         <th>Giá</th>
                         <th>Ngày Tạo</th>
-                        
-                        
                         <th></th>
-
-
-
                     </tr>
                 </thead>
                 <tbody>
@@ -79,14 +80,14 @@
 
                         foreach (var item in Model)
                         {
-                           
+
 
                             <tr>
                                 <td>@i</td>
                                 <td>@item.Code</td>
                                 <td>@item.CustomerName</td>
                                 <td>@item.TotalAmount</td>
-                               
+
 
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td>
@@ -99,24 +100,32 @@
                     }
                     else
                     {
+
                         <tr>
                             <td colspan="4">  </td>
                         </tr>
                     }
                 </tbody>
             </table>
+
             @Html.PagedListPager(Model, page => Url.Action("xem",
-                new { page}))
+                new { page }))
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
+            <h2>Tổng Doanh Thu: @ViewBag.Sumdonhang</h2>
+            @if (@ViewBag.SumBydate > 0)
+            {
+                <h2>
+                    Tổng Số Tiền Của Bán từ @ViewBag.starDate
+                    đến  @ViewBag.endDate là <input type="text" name="name" value=" @ViewBag.SumBydate" />
+                </h2>
+            }
+            <h2>Số Đơn Hàng Được Bán Ra: @ViewBag.countsp</h2>
 
-        </div>
-        <!-- /.card-footer-->
+        </div>    
     </div>
     <!-- /.card -->
 
 </section>
 <!-- /.content -->
-}
-

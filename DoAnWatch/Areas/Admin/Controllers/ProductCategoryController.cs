@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,10 +13,23 @@ namespace DoAnWatch.Areas.Admin.Controllers
     {
         ApplicationDbContext _dbcontext = new ApplicationDbContext();
         // GET: Admin/ProductCategory
-        public ActionResult Index(string searchString)
+        public ActionResult Index()
         {
+            var orders = new List<ProductCategogy>();
            
-            return View(_dbcontext.ProductCategogies.Where(x=>x.Title.Contains(searchString) || searchString == null).ToList());
+            
+                //ngược lại trả toàn bộ sản phẩm
+                orders = _dbcontext.ProductCategogies.ToList();
+            
+
+
+            //decimal totalRevenue = orders.Sum(o => o.TotalPrice);
+
+            //ViewBag.TotalRevenue = totalRevenue;
+
+            return View(orders);
+
+            //return View(_dbcontext.ProductCategogies.Where(x=>x.Title.Contains(searchString) || searchString == null).ToList());
         }
         
         public ActionResult Add()
@@ -43,7 +57,9 @@ namespace DoAnWatch.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult edit(int id)
         {
+            //tìm kiếm sản phầm để chĩnh sửa
             var productCategogy = _dbcontext.ProductCategogies.Find(id);
+
             return View(productCategogy);
         }
         [HttpPost]

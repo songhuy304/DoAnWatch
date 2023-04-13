@@ -39,24 +39,14 @@ namespace DoAnWatch.Areas.Admin.Controllers
             }
             ViewBag.CurrentFilter = searchString;
             int pageIndex = (page ?? 1);
-            int pagesize = 5; /*số lượng item của trang = 5*/
+            int pagesize = 8; /*số lượng item của trang = 5*/
             item = item.OrderByDescending(n => n.Id).ToList();
-            //ViewBag.PageSize = pagesize;
-            //ViewBag.Page = page; 
+            ViewBag.PageSize = pagesize;
+            ViewBag.Page = page;
             return View(item.ToPagedList(pageIndex, pagesize));
             
 
-            //<*-- Phân trang -->
-
-            //IEnumerable<Product> item = _dbcontext.Products.OrderByDescending(x => x.Id);
-            //var pagesize = 5;
-            //if (page == null)
-            //{
-            //    page = 1;
-            //}
-            //var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            //item = item.ToPagedList(pageIndex, pagesize);
-            //return View(item);
+          
         }
         public ActionResult Add()
         {
@@ -113,7 +103,7 @@ namespace DoAnWatch.Areas.Admin.Controllers
             var product = _dbcontext.Products.Find(id);
             _dbcontext.Products.Remove(product);
             _dbcontext.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Product");
 
         }
         public ActionResult detail(int? id)

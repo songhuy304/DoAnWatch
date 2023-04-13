@@ -31,6 +31,7 @@ namespace DoAnWatch.Models
             var checkExits = Items.FirstOrDefault(x => x.ProductId == item.ProductId);
             if (checkExits != null)
             {
+                
                 checkExits.Quantity += Quantity;
                 checkExits.TotalPrice = checkExits.Price * checkExits.Quantity;
             }
@@ -54,8 +55,9 @@ namespace DoAnWatch.Models
             var checkExits = Items.SingleOrDefault(x => x.ProductId == id);
             if (checkExits != null)
             {
-                checkExits.Quantity += Quantity;
+                checkExits.Quantity = Quantity;
                 checkExits.TotalPrice = checkExits.Price * checkExits.Quantity;
+             
             }
         }
         public decimal GetToTalQuantity()

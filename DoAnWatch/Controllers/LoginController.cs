@@ -15,6 +15,7 @@ namespace DoAnWatch.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+           
             return View();
         }
 
@@ -28,8 +29,8 @@ namespace DoAnWatch.Controllers
             {
                 var f_password = userr.Password;
                 var userlogin1 = db.userrs.Where(s => s.Username.Equals(userr.Username) && s.IsAdmin == null && s.Password.Equals(f_password));
-                var userlogin = db.userrs.Where(s => s.Username.Equals(userr.Username) && s.IsAdmin==true &&  s.Password.Equals(f_password));
-                if (userlogin.Count() > 0)
+                var userlogin = db.userrs.Where(s => s.Username.Equals(userr.Username) && s.IsAdmin == true &&  s.Password.Equals(f_password));
+                if (userlogin1.Count() > 0)
                 {
                     //add session
                     Session["FullName"] = userlogin.FirstOrDefault().Fullname;
@@ -40,21 +41,24 @@ namespace DoAnWatch.Controllers
                 if (userlogin1.Count() > 0)
                 {
                     //add session
-                    Session["FullName"] = userlogin.FirstOrDefault().Fullname;
-                    Session["Username"] = userlogin.FirstOrDefault().Username;
-                    Session["UserID"] = userlogin.FirstOrDefault().UserID;
+                    Session["FullName"] = userlogin1.FirstOrDefault().Fullname;
+                    Session["Username"] = userlogin1.FirstOrDefault().Username;
+                    Session["UserID"] = userlogin1.FirstOrDefault().UserID;
                     return RedirectToAction("Index", "Home");
                 }
 
                 else
                 {
-                    ViewBag.error = "Đăng Nhập Không Thành Công";
-                    return RedirectToAction("Index", "Login");
+                    string message = "Đăng Nhập Không Thành Công!";
+                    string script = "alert('" + message + "');";
+                    return Content("<script type='text/javascript'>" + script + "window.location.href='/login/login';</script>");
                 }
             }
             else
             {
                 return View(userr);
+
+               
             }
         }
         [HttpGet]
@@ -89,7 +93,9 @@ namespace DoAnWatch.Controllers
         public ActionResult Logout()
         {
             Session.Remove("UserID");
-            return RedirectToAction("Index", "Login");
+            Session.Remove("FullName");
+            Session.Remove("Username");
+            return RedirectToAction("Login", "Login");
         }
     }
 }

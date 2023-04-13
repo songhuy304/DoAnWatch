@@ -18,16 +18,17 @@
 
 </head>
 <body>
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center mb-5">
+            <h2 class="heading-section">Đăng Nhập</h2>
+        </div>
+    </div>
     @using (Html.BeginForm("Login", "Login", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         <section class="ftco-section">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-6 text-center mb-5">
-                        <h2 class="heading-section">Đăng Nhập</h2>
-                    </div>
-                </div>
+
                 <div class="row justify-content-center">
                     <div class="col-md-6 col-lg-5">
                         <div class="login-wrap p-4 p-md-5">
@@ -60,7 +61,8 @@
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Đăng Nhập</button>
                                 </div>
-                                
+
+
                             </form>
                         </div>
                     </div>
@@ -69,11 +71,11 @@
         </section>
     }
 
-        <script src="~/Public/asset/js/jquery.min.js"></script>
-        <script src="~/Public/asset/js/popper.js"></script>
-        <script src="~/Public/asset/js/bootstrap.min.js"></script>
-        <script src="~/Public/asset/js/main.js"></script>
+    <script src="~/Public/asset/js/jquery.min.js"></script>
+    <script src="~/Public/asset/js/popper.js"></script>
+    <script src="~/Public/asset/js/bootstrap.min.js"></script>
+    <script src="~/Public/asset/js/main.js"></script>
 
-    </body>
+</body>
 </html>
 

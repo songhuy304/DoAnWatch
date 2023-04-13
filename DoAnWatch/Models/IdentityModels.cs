@@ -33,7 +33,7 @@ namespace DoAnWatch.Models
 
         public DbSet<ProductCategogy> ProductCategogies { get; set; }
 
-        public DbSet<Contact> Contacts { get; set; }
+        //public DbSet<Contact> Contacts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Userr> userrs { get; set; }

@@ -3,14 +3,16 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class tableMOi : DbMigration
+    public partial class tiep : DbMigration
     {
         public override void Up()
         {
+            DropColumn("dbo.tb_Product", "Alidas");
         }
         
         public override void Down()
         {
+            AddColumn("dbo.tb_Product", "Alidas", c => c.String());
         }
     }
 }

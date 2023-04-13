@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaoCaoDoanhThuController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
@@ -235,15 +236,26 @@
     <Compile Include="Migrations\202303281119521_table.designer.cs">
       <DependentUpon>202303281119521_table.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303281229514_tableMOi.cs" />
-    <Compile Include="Migrations\202303281229514_tableMOi.designer.cs">
-      <DependentUpon>202303281229514_tableMOi.cs</DependentUpon>
+    <Compile Include="Migrations\202303281243524_tablemoinhat.cs" />
+    <Compile Include="Migrations\202303281243524_tablemoinhat.designer.cs">
+      <DependentUpon>202303281243524_tablemoinhat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304011535272_updatemoinhat1.cs" />
+    <Compile Include="Migrations\202304011535272_updatemoinhat1.designer.cs">
+      <DependentUpon>202304011535272_updatemoinhat1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304110653318_moinhatne.cs" />
+    <Compile Include="Migrations\202304110653318_moinhatne.designer.cs">
+      <DependentUpon>202304110653318_moinhatne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304110658068_tiep.cs" />
+    <Compile Include="Migrations\202304110658068_tiep.designer.cs">
+      <DependentUpon>202304110658068_tiep.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
-    <Compile Include="Models\EF\Contact.cs" />
     <Compile Include="Models\EF\ThongKe.cs" />
     <Compile Include="Models\EF\Userr.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -259,11 +271,23 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\asset\plugins\chart.js\Chart.bundle.js" />
+    <Content Include="Content\asset\plugins\chart.js\Chart.bundle.min.js" />
+    <Content Include="Content\asset\plugins\chart.js\Chart.css" />
+    <Content Include="Content\asset\plugins\chart.js\Chart.js" />
+    <Content Include="Content\asset\plugins\chart.js\Chart.min.css" />
+    <Content Include="Content\asset\plugins\chart.js\Chart.min.js" />
     <Content Include="Content\asset\styles\css.css" />
     <Content Include="Content\img\h3.png" />
     <Content Include="Content\img\h5.png" />
     <Content Include="Content\img\h6.png" />
     <Content Include="Content\img\h7.png" />
+    <Content Include="Content\img\hublot1.png" />
+    <Content Include="Content\img\hublot7mau.png" />
+    <Content Include="Content\img\hublottrang.png" />
+    <Content Include="Content\img\Maserati1.png" />
+    <Content Include="Content\img\Maserati2.png" />
+    <Content Include="Content\img\sp10.png" />
     <Content Include="Content\img\sp2.png" />
     <Content Include="Content\img\sp3.png" />
     <Content Include="Content\img\sp4.png" />
@@ -273,7 +297,10 @@
     <Content Include="Content\img\sp8.png" />
     <Content Include="Public\1.jpg" />
     <Content Include="Public\1520143360667.jfif" />
+    <Content Include="Public\69925d9f2e0ac384fc962c03087d3e90.jpg" />
+    <Content Include="Public\8166be74c2ab4439ad906cd7a531c589.jpg" />
     <Content Include="Public\88f38fe568f7e51006156c253e98138f.jpg" />
+    <Content Include="Public\a4870dd659405cd3227e25ac00d5f8cb.jpg" />
     <Content Include="Public\asset\css\bootstrap.min.css" />
     <Content Include="Public\asset\css\bootstrap\mixins\_border-radius.css" />
     <Content Include="Public\asset\css\bootstrap\mixins\_screen-reader.css" />
@@ -285,6 +312,7 @@
     <Content Include="Public\asset\js\jquery.min.js" />
     <Content Include="Public\asset\js\main.js" />
     <Content Include="Public\asset\js\popper.js" />
+    <Content Include="Public\f6b6eb923973e3d5ef8d27d5ba167304.jpg" />
     <Content Include="Public\images\1520143360667.jfif" />
     <Content Include="Public\images\88f38fe568f7e51006156c253e98138f.jpg" />
     <Content Include="Public\images\banner_2.jpg" />
@@ -2484,6 +2512,7 @@
     <Content Include="Areas\Admin\Views\Orders\xem.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Chitiet.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Partial_SanPham.cshtml" />
+    <Content Include="Areas\Admin\Views\BaoCaoDoanhThu\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2537,14 +2566,12 @@
     <Content Include="Views\Products\Partial_ItemsBySale.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Menu\MenuLeft.cshtml" />
-    <Content Include="Views\Products\Partial_ItemsByCateIddd.cshtml" />
     <Content Include="Views\Products\detail.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Partial_Item_Cart.cshtml" />
     <Content Include="Views\ShoppingCart\CheckOut.cshtml" />
     <Content Include="Views\ShoppingCart\Partial_Item_ThanhToan.cshtml" />
     <Content Include="Views\ShoppingCart\Partial_CheckOut.cshtml" />
-    <Content Include="Views\ShoppingCart\CheckOutSuccess.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
@@ -2591,8 +2618,17 @@
     <EmbeddedResource Include="Migrations\202303281119521_table.resx">
       <DependentUpon>202303281119521_table.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303281229514_tableMOi.resx">
-      <DependentUpon>202303281229514_tableMOi.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303281243524_tablemoinhat.resx">
+      <DependentUpon>202303281243524_tablemoinhat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304011535272_updatemoinhat1.resx">
+      <DependentUpon>202304011535272_updatemoinhat1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304110653318_moinhatne.resx">
+      <DependentUpon>202304110653318_moinhatne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304110658068_tiep.resx">
+      <DependentUpon>202304110658068_tiep.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

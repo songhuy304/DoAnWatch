@@ -1,4 +1,6 @@
-﻿@model IEnumerable<DoAnWatch.Models.Product>
+﻿@model PagedList.PagedList<DoAnWatch.Models.Product>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@using PagedList.Mvc;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -19,37 +21,23 @@
             <!-- Breadcrumbs -->
 
             <div class="breadcrumbs d-flex flex-row align-items-center">
-                <ul>
+                @*<ul>
                     <li><a href="/home/index">Home</a></li>
                     <li class="active"><a href="/products/index"><i class="fa fa-angle-right" aria-hidden="true"></i>Sản Phẩm</a></li>
-                </ul>   
+                </ul>*@
+                <h3 class="title1">Danh Sách Sản Phẩm</h3>
             </div>
 
-            <!-- Sidebar -->
-
+             
             <div class="sidebar">
-                <h3>Danh Mục Sản Phẩm</h3>
+                <h3 class="title1">Bán Chạy</h3>
                 @Html.Action("MenuLeft", "Menu")
 
 
-                <!-- Price Range Filtering -->
-                <div class="sidebar_section">
-                    <div class="sidebar_title">
-                        <h5>Tìm Kiếm Theo Giá</h5>
-                    </div>
-                    <p>
-                        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                    </p>
-                    <div id="slider-range"></div>
-                    <div class="filter_button"><span>filter</span></div>
-                </div>
-
-
-                <!-- Color -->
-
-
+             
             </div>
-
+            <!-- Color -->
+            <!--</div>-->
             <!-- Main Content -->
 
             <div class="main_content">
@@ -61,38 +49,31 @@
                         <div class="col">
 
                             <!-- Product Sorting -->
-                           
+
                             <div class="product_sorting_container product_sorting_container_top">
                                 <ul class="product_sorting">
-                                    <li>
-                                        <span class="type_sorting_text">Default Sorting</span>
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="sorting_type">
-                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "original-order" }'><span>Default Sorting</span></li>
-                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "price" }'><span>Price</span></li>
-                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "name" }'><span>Product Name</span></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <span>Show</span>
-                                        <span class="num_sorting_text">6</span>
-                                        <i class="fa fa-angle-down"></i>
-                                        <ul class="sorting_num">
-                                            <li class="num_sorting_btn"><span>3</span></li>
-                                            <li class="num_sorting_btn"><span>6</span></li>
-                                            <li class="num_sorting_btn"><span>15</span></li>
-                                        </ul>
-                                    </li>
+                                  
+
                                 </ul>
                                 <div class="pages d-flex flex-row align-items-center">
+
                                     @using (Html.BeginForm("Index", "Products", FormMethod.Get))
                                     {
 
-                                        @Html.TextBox("searchString")
-                                        <input type="submit" value="Search" class="btn btn-primary" />
+                                        @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @placeholder = "Tìm Sản Phẩm" })
+                                        <button type="submit" value="Search" class="btn btn-primary">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+
+                                        @Html.DropDownList("category", ViewBag.CategoryList as SelectList, "Tất cả danh mục", new { @value = "" })
+
+                                        <button type="submit" value="Search" class="btn btn-primary">
+                                        </button>
+
+
+
                                     }
 
-                                    
                                 </div>
 
                             </div>
@@ -110,16 +91,24 @@
                                             <div class="product discount product_filter">
                                                 <div class="product_image">
                                                     <a href="/Products/detail/@item.Id"><img src="@Url.Content("~/Content/img/" + item.Image)" width="210" height="218" alt=""></a>
-
+                                                    @*red_button add_to_cart_button*@
 
                                                 </div>
                                                 <div class="favorite favorite_left"></div>
                                                 <div class="product_info">
                                                     <h6 class="product_name"><a href="/Products/detail/@item.Id">@item.Title</a></h6>
                                                     <div class="product_price">$@item.Price</div>
+                                                    <div>
+                                                        <p> Số Lượng Còn : @item.Quantity </p>
+                                                        <div class="btn btn-success">
+                                                            <a href="#" class="btnAddToCart" style="color:aliceblue" data-id="@item.Id"> <i class="fa fa-shopping-cart"></i>Thêm Vào Giỏ Hàng</a>
+
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Id">Thêm Vào Giỏ Hàng</a></div>
+                                           
                                         </div>
 
                                     }
@@ -133,27 +122,10 @@
                             <!-- Product Sorting -->
 
                             <div class="product_sorting_container product_sorting_container_bottom clearfix">
-                                <ul class="product_sorting">
-                                    <li>
-                                        <span>Show:</span>
-                                        <span class="num_sorting_text">04</span>
-                                        <i class="fa fa-angle-down"></i>
-                                        
-                                    </li>
-                                </ul>
-                                
-                                <div class="pages d-flex flex-row align-items-center">
-                                    <div class="page_current">
-                                        <span>1</span>
-                                        <ul class="page_selection">
-                                            <li><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="page_total"><span>of</span> 3</div>
-                                    <div id="next_page_1" class="page_next"><a href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
-                                </div>
+
+
+                                @Html.PagedListPager(Model, page => Url.Action("Index",
+                   new { page, currentFilter = ViewBag.CurrentFilter }))
 
                             </div>
 
@@ -173,4 +145,11 @@
     <script src="~/Content/asset/plugins/easing/easing.js"></script>
     <script src="~/Content/asset/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="~/Content/asset/js/categories_custom.js"></script>
+    <script>
+        $(document).ready(function () {
+            if ($("#category").val() === "0") {
+                $("#category").val("");
+            }
+        });
+    </script>
 }

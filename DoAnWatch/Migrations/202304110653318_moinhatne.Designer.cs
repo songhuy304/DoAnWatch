@@ -7,13 +7,13 @@ namespace DoAnWatch.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class tableMOi : IMigrationMetadata
+    public sealed partial class moinhatne : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(tableMOi));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(moinhatne));
         
         string IMigrationMetadata.Id
         {
-            get { return "202303281229514_tableMOi"; }
+            get { return "202304110653318_moinhatne"; }
         }
         
         string IMigrationMetadata.Source

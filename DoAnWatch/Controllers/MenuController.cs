@@ -17,7 +17,7 @@ namespace DoAnWatch.Controllers
         }
         public ActionResult MenuLeft()
         {
-            var items = db.ProductCategogies.ToList();
+            var items = db.Products.Where(x=>x.IsHot).Take(3).ToList();
             return PartialView("MenuLeft", items);
         }
 

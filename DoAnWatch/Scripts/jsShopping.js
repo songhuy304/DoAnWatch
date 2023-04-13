@@ -20,16 +20,16 @@
             }
         });
     }); 
-    $('body').on('click', '.btnUpdate', function (e) {
-        e.preventDefault();
-        var id = $(this).data("id");
+    //$('body').on('click', '.btnUpdate', function (e) {
+    //    e.preventDefault();
+    //    var id = $(this).data("id");
        
-        var quantity = $('#Quantity_' + id).val();
-        Update(id, quantity);
+    //    var quantity = $('#Quantity_' + id).val();
+    //    Update(id, quantity);
 
 
        
-    });
+    //});
 });
 
 function ShowCount() {

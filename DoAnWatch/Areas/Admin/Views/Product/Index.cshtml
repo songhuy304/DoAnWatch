@@ -8,7 +8,7 @@
 }
 @section naviheader{
 
-    <!-- Left navbar links -->
+     
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
@@ -50,7 +50,8 @@
                 @using (Html.BeginForm("Index", "Product", FormMethod.Get))
                 {
 
-                    @Html.TextBox("searchString", ViewBag.CurrentFilter as string)<input type="submit" value="Search" class="btn btn-default" />
+                    @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+                    <input type="submit" value="Search" class="btn btn-default" />
                 }
                 <a href="/admin/Product/Add" class="btn btn-primary">Thêm Mới</a>
             </div>
@@ -81,7 +82,6 @@
                         {
                             var strCheck = item.IsHome ? "<i class='fa fa-check text-success'  ></i>" : "<i class='fas fa-times text-danger'  ></i>";
                             var strCheckHot = item.IsHot ? "<i class='fa fa-check text-success'  ></i>" : "<i class='fas fa-times text-danger'  ></i>";
-
                             var strCheckSale = item.IsSale ? "<i class='fa fa-check text-success'  ></i>" : "<i class='fas fa-times text-danger'  ></i>";
 
                             <tr id="trow_@item.Id">
@@ -89,7 +89,7 @@
                                 <td>@item.Title</td>
                                 <td>@item.ProductCategory.Title</td>
                                 <td>@item.Price</td>
-                                <td> <img src="@Url.Content("~/Content/img/" +item.Image)" height="80px" alt="2" /> </td>
+                                <td> <img src="@Url.Content("~/Content/img/" +item.Image)" height="80" alt="2" /> </td>
                                 <td class="text-danger">
                                     <i class="btnHome">@Html.Raw(strCheck)</i>
                                 </td>
@@ -103,7 +103,7 @@
                                 @*<td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>*@
                                 <td>
                                     <a href="/admin/product/edit/@item.Id " class=" btn btn-primary">Sửa</a>
-                                    <a href="#" onclick="if (confirm('are you sure') == true) location.href = '/admin/product/delete/@item.Id'" class=" btn btn-danger">Xóa</a>
+                                    <a href="#" onclick="if (confirm('are you sure') == true) location.href = '/admin/product/delete/@item.Id'" class="btn btn-danger">Xóa</a>
                                     @*<a href="/admin/product/detail/@item.Id " class=" btn btn-primary">Sửa</a>*@
 
 

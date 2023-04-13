@@ -16,7 +16,7 @@ namespace DoAnWatch.Models
         public int Id { get; set; }
         [Required(ErrorMessage = " Tiêu Đề Không Đuợc trống")]
         public string Title { get; set; }
-        public string Alidas { get; set; }
+      
 
         public string ProductCode { get; set; }
         [StringLength(100)]
@@ -33,9 +33,7 @@ namespace DoAnWatch.Models
         public int Quantity { get; set; }
 
         public int ProductCategoryId { get; set; }
-        public string SeoTitle { get; set; }
-        public string SeoDescription { get; set; }
-        public string SeoKeywords { get; set; }
+      
         //public IEnumerable<SelectListItem> CategoryList { get; set; }
         public virtual ProductCategogy ProductCategory { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
